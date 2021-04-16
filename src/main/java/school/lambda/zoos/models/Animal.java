@@ -18,7 +18,7 @@ public class Animal extends Auditable{
   @OneToMany(mappedBy = "animal",
             cascade = CascadeType.ALL,
           orphanRemoval = true)
-  @JsonIgnoreProperties(value = "animal", allowSetters = true)
+@JsonIgnoreProperties(value = "animal", allowSetters = true)
   private Set<ZooAnimals> zoos = new HashSet<>();
 
 

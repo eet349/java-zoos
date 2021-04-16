@@ -1,5 +1,7 @@
 package school.lambda.zoos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,11 +13,13 @@ public class ZooAnimals extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties(value = "animals", allowSetters = true)
     private Zoo zoo;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "animalid")
+    @JsonIgnoreProperties(value = "zoos", allowSetters = true)
     private Animal animal;
 
     private String incomingzoo;
