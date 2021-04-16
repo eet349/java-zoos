@@ -1,11 +1,23 @@
 package school.lambda.zoos.models;
 
-public class Telephone {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "telephones")
+public class Telephone extends Auditable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long phoneid;
     private String phonetype;
     private String phonenumber;
-    //  zooid - One to Many
+    //  zooid - Many to one
+    @ManyToOne
+    @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties(value = "telephones", allowSetters = true)
     private Zoo zoo;
+
 
     public Telephone() {
     }

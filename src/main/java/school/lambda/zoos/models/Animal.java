@@ -1,14 +1,34 @@
 package school.lambda.zoos.models;
 
-public class Animal {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "animals")
+public class Animal extends Auditable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long animalid;
+
     private String animaltype;
+
+  @OneToMany(mappedBy = "animal",
+            cascade = CascadeType.ALL,
+          orphanRemoval = true)
+  @JsonIgnoreProperties(value = "animal", allowSetters = true)
+  private Set<ZooAnimals> zoos = new HashSet<>();
+
+
 
     public Animal() {
     }
 
-    public Animal(String animaltype) {
+    public Animal(String animaltype, Set<ZooAnimals> zoos) {
         this.animaltype = animaltype;
+        this.zoos = zoos;
     }
 
     public long getAnimalid() {
@@ -25,5 +45,13 @@ public class Animal {
 
     public void setAnimaltype(String animaltype) {
         this.animaltype = animaltype;
+    }
+
+    public Set<ZooAnimals> getZoos() {
+        return zoos;
+    }
+
+    public void setZoos(Set<ZooAnimals> zoos) {
+        this.zoos = zoos;
     }
 }
