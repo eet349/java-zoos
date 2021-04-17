@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import school.lambda.zoos.models.Zoo;
@@ -31,4 +32,10 @@ public class ZooController {
 
     //  http://localhost:2019/zoos/zoo/5
     //  all info related to a zoo
+    @GetMapping(value = "/zoo/{zooid}")
+    public ResponseEntity<?> getZooById(@PathVariable long zooid) {
+        Zoo rtnZoo = zooServices.findZooByZooid(zooid);
+
+        return new ResponseEntity<>(rtnZoo, HttpStatus.OK);
+    }
 }
